@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title shown in the browser tab -->
+    <title>FakeLink Detector</title>
+    <!-- Link to the main stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Main app wrapper -->
+    <div class="app">
+        <!-- Header / Hero section -->
+        <header class="header">
+            <h1 class="title">FakeLink Detector</h1>
+            <p class="subtitle">
+                Paste a URL and quickly see if it looks <span class="highlight">safe</span> or <span class="highlight">suspicious</span>.
+            </p>
+        </header>
+
+        <!-- Card that contains the URL input and result -->
+        <main class="card">
+            <!-- URL input form -->
+            <form id="link-form" class="form">
+                <!-- Label for accessibility -->
+                <label for="url-input" class="label">Website URL</label>
+
+                <!-- URL input field where users paste the link they want to check -->
+                <div class="input-row">
+                    <input
+                        type="url"
+                        id="url-input"
+                        class="input"
+                        placeholder="https://example.com/login"
+                        required
+                    >
+
+                    <!-- Button that triggers the link check -->
+                    <button type="submit" id="check-button" class="button">
+                        <span class="button-text">Check Link</span>
+                        <!-- Simple loading spinner shown while the request is in progress -->
+                        <span class="spinner" id="button-spinner" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+                <!-- Helper text below the input -->
+                <p class="helper-text">
+                    We never store your URLs. This is a simple heuristic checker and not a guarantee of safety.
+                </p>
+            </form>
+
+            <!-- Area where the result will be displayed -->
+            <section id="result" class="result hidden" aria-live="polite">
+                <h2 id="result-title" class="result-title"></h2>
+                <p id="result-message" class="result-message"></p>
+
+                <!-- List of reasons explaining why the link is suspicious or safe -->
+                <ul id="result-reasons" class="result-reasons"></ul>
+            </section>
+        </main>
+
+        <!-- Simple footer -->
+        <footer class="footer">
+            <p class="footer-text">
+                Built as a demo phishing link detector. Always double‑check suspicious emails and URLs.
+            </p>
+        </footer>
+    </div>
+
+    <!-- Main JavaScript file that wires up the UI and API calls -->
+    <script src="script.js"></script>
+</body>
+</html>

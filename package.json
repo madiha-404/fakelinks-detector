@@ -1,0 +1,23 @@
+{
+  "name": "fakelink-detector",
+  "version": "1.0.0",
+  "description": "A simple demo web app that detects potentially fake / phishing links using basic heuristics.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "phishing",
+    "security",
+    "url",
+    "detector",
+    "express",
+    "demo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
+
