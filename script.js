@@ -41,6 +41,12 @@ function analyzeUrl(rawUrl) {
     const full = parsed.toString().toLowerCase();
     const pathAndQuery = (parsed.pathname + parsed.search).toLowerCase();
 
+    // 0) Hostname sanity check (catch cases like "https//instagram-get-free-followers.com")
+    if (!hostname || !hostname.includes(".")) {
+        score += 2;
+        reasons.push("The URL does not contain a normal domain name part, which is unusual for a legitimate website.");
+    }
+
     // 1) Protocol check
     if (parsed.protocol !== "https:") {
         score += 1;
@@ -88,7 +94,21 @@ function analyzeUrl(rawUrl) {
         reasons.push("The URL contains an '@' symbol, which can be used to hide the true destination.");
     }
 
-    // 8) Mismatch between apparent brand name and domain
+    // 8) Scam / promo-style keywords in domain or path
+    const scamKeywords = ["free", "bonus", "win", "winner", "giveaway", "prize", "followers", "likes", "subscribers"];
+    const scamHits = scamKeywords.filter(
+        (kw) => hostname.includes(kw) || pathAndQuery.includes(kw)
+    );
+    if (scamHits.length > 0) {
+        score += 1;
+        reasons.push(
+            `The link contains promotional keywords (${scamHits.join(
+                ", "
+            )}), which are often used in scam or spam campaigns.`
+        );
+    }
+
+    // 9) Mismatch between apparent brand name and domain
     const knownBrands = ["google", "facebook", "paypal", "microsoft", "netflix", "amazon", "apple", "bankofamerica"];
     const brandHits = knownBrands.filter((brand) => full.includes(brand));
     if (brandHits.length > 0 && !brandHits.some((brand) => hostname.includes(brand))) {
